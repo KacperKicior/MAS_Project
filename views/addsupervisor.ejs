@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CleanOps - Add new Supervisor</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1>Add new Supervisor</h1>
+<form method="post" action="/addSupervisor" id="supervisorForm" onsubmit="return validateAndSubmitForm()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+
+    <label for="surname">Surname:</label>
+    <input type="text" id="surname" name="surname" required>
+    <br>
+
+    <label for="phonenmbr">Phone number:</label>
+    <input type="text" id="phonenmbr" name="phonenmbr">
+    <br>
+
+    <label for="adress">Address:</label>
+    <input type="text" id="adress" name="adress">
+    <br>
+
+    <label for="salary">Salary:</label>
+    <input type="number" id="salary" name="salary" required>
+    <br>
+
+    <label for="login">Login:</label>
+    <input type="text" id="login" name="login" required>
+    <br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <br>
+
+    <button type="submit">Add Supervisor</button>
+    <br>
+</form>
+<form action="/">
+    <button type="submit" id="del-button">Cancel Back to List</button>
+</form>
+
+<script>
+    function validateAndSubmitForm() {
+        const phoneNumber = document.getElementById("phonenmbr").value;
+        const salary = document.getElementById("salary").value;
+        const login = document.getElementById("login").value;
+        const password = document.getElementById("password").value;
+
+        if (phoneNumber.length !== 9) {
+            alert('Phone number must have 9 digits');
+            return false;
+        }
+        if (salary <= 0) {
+            alert('Salary must be greater than 0');
+            return false;
+        }
+        if (login.length < 3) {
+            alert('Login must have at least 3 characters');
+            return false;
+        }
+        if (password.length < 6) {
+            alert('Password must have at least 6 characters');
+            return false;
+        }
+
+        // If all checks are passed then allow the form to be submitted
+        return true;
+    }
+</script>
+</body>
+</html>

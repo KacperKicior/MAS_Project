@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Supervisor</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+
+<h1>Edit Supervisor</h1>
+
+<form method="post" action="/supervisorDetails/<%= supervisor.id %>/update" onsubmit="return validateAndSubmitForm()">
+    <p>
+        <strong>Name:</strong>
+        <input type="text" id="name" name="name" value="<%= supervisor.name %>">
+    </p>
+    <p>
+        <strong>Surname:</strong>
+        <input type="text" id="surname" name="surname" value="<%= supervisor.surname %>">
+    </p>
+    <p>
+        <strong>Phone Number:</strong>
+        <input type="text" id="phonenmbr" name="phonenmbr" value="<%= supervisor.phonenmbr %>">
+    </p>
+    <p>
+        <strong>Address:</strong>
+        <input type="text" id="adress" name="adress" value="<%= supervisor.adress %>">
+    </p>
+    <p>
+        <strong>Salary:</strong>
+        <input type="text" id="salary" name="salary" value="<%= supervisor.Supervisors[0].salary %>">
+    </p>
+    <p>
+        <strong>Login:</strong>
+        <input type="text" id="login" name="login" value="<%= supervisor.Supervisors[0].login %>">
+    </p>
+    <p>
+        <strong>Password:</strong>
+        <input type="password" id="password" name="password" value="<%= supervisor.Supervisors[0].password %>">
+    </p>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<form>
+    <button id="del-button"><a href="/supervisorDetails/<%= supervisor.id %>">Cancel</a></button>
+</form>
+
+<script>
+    function validateAndSubmitForm() {
+        const phoneNumber = document.getElementById("phonenmbr").value;
+        const salary = document.getElementById("salary").value;
+        const login = document.getElementById("login").value;
+        const password = document.getElementById("password").value;
+
+        if (phoneNumber.length !== 9) {
+            alert('Phone number must have 9 digits');
+            return false;
+        }
+        if (salary <= 0) {
+            alert('Salary must be greater than 0');
+            return false;
+        }
+        if (login.length < 3) {
+            alert('Login must have at least 3 characters');
+            return false;
+        }
+        if (password.length < 6) {
+            alert('Password must have at least 6 characters');
+            return false;
+        }
+
+        // If all checks are passed then allow the form to be submitted
+        return true;
+    }
+</script>
+
+</body>
+</html>

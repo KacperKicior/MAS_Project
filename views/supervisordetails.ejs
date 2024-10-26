@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supervisor Details</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+
+<h1>Supervisor Details</h1>
+<p><strong>Name:</strong> <%= supervisor.name %></p>
+<p><strong>Surname:</strong> <%= supervisor.surname %></p>
+<p><strong>Phone Number:</strong> <%= supervisor.phonenmbr %></p>
+<p><strong>Adress:</strong> <%= supervisor.adress %></p>
+<% if (supervisor.Supervisors && supervisor.Supervisors.length > 0) { %>
+    <p><strong>Salary:</strong> <%= supervisor.Supervisors[0].salary %> PLN</p>
+    <p><strong>Login:</strong> <%= supervisor.Supervisors[0].login %></p>
+    <p><strong>Password:</strong> <%= supervisor.Supervisors[0].password %></p>
+<% } else { %>
+    <p><strong>Salary:</strong> Not available</p>
+    <p><strong>Login:</strong> Not available</p>
+    <p><strong>Password:</strong> Not available</p>
+<% } %>
+
+
+<form method="post" action="/supervisorDetails/<%= supervisor.Supervisors[0].id %>/delete">
+    <button type="submit" id="del-button">Delete this Supervisor</button>
+</form>
+
+<form>
+    <button type="submit" id="edit-button"><a href="/supervisorDetails/<%= supervisor.id %>/edit">Edit</a></button>
+</form>
+
+<form action="/">
+    <button type="submit">Back to List</button>
+</form>
+
+<br>
+
+<h2>Associated Jobs</h2>
+<% if (supervisor.Supervisors[0].Jobs && supervisor.Supervisors[0].Jobs.length > 0) { %>
+    <table>
+        <thead>
+        <tr>
+            <th>Job ID</th>
+            <th>Date From</th>
+            <th>Date To</th>
+            <th>Cost</th>
+            <th>Address</th>
+            <th>Job Constants</th>
+            <th>Job Temporaries</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% supervisor.Supervisors[0].Jobs.forEach(job => { %>
+            <tr>
+                <td><%= job.id %></td>
+                <td><%= job.dateFrom %></td>
+                <td><%= job.dateTo %></td>
+                <td><%= job.cost %> PLN</td>
+                <td><%= job.adress %></td>
+                <td>
+                    <% if (job.JobConstants && job.JobConstants.length > 0) { %>
+                        <ul>
+                            <% job.JobConstants.forEach(constant => { %>
+                                <li>ID: <%= constant.id %>, Commission: <%= constant.commision %></li>
+                            <% }); %>
+                        </ul>
+                    <% } else { %>
+                        No constants
+                    <% } %>
+                </td>
+                <td>
+                    <% if (job.JobTemporaries && job.JobTemporaries.length > 0) { %>
+                        <ul>
+                            <% job.JobTemporaries.forEach(temporary => { %>
+                                <li>Related to Constant Job: <%= temporary.relatedToConstantJob %></li>
+                            <% }); %>
+                        </ul>
+                    <% } else { %>
+                        No temporaries
+                    <% } %>
+                </td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p id="no-jobs">No jobs associated with this supervisor.</p>
+<% } %>
+
+<form action="/supervisorDetails/<%= supervisor.Supervisors[0].id %>/addJob" method="get">
+    <button type="submit">Add New Job</button>
+</form>
+
+</body>
+</html>

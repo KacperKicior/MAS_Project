@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Supervisors List</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1>Supervisors List</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Salary</th>
+    <th>Login</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if (Array.isArray(people)) { %>
+    <% people.forEach(person => { %>
+      <% person.Supervisors.forEach(supervisor => { %>
+        <tr>
+          <td><a href="/supervisorDetails/<%= supervisor.id %>"><%= person.name %></a></td>
+          <td><a href="/supervisorDetails/<%= supervisor.id %>"><%= person.surname %></a></td>
+          <td><a href="/supervisorDetails/<%= supervisor.id %>"><%= supervisor.salary %></a></td>
+          <td><a href="/supervisorDetails/<%= supervisor.id %>"><%= supervisor.login %></a></td>
+        </tr>
+      <% }); %>
+    <% }); %>
+  <% } else { %>
+    <tr>
+      <td colspan="4">No data available</td>
+    </tr>
+  <% } %>
+  </tbody>
+</table>
+
+<form action="/addSupervisor">
+  <button type="submit">Add new Supervisor</button>
+</form>
+</body>
+</html>
